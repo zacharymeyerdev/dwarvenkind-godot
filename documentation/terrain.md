@@ -29,14 +29,19 @@
    - [Rock and Lava](#rock-and-lava)
    - [Water and Sand](#water-and-sand)
    - [Crystal and Metal Veins](#crystal-and-metal-veins)
-6. [Particle Systems](#particle-systems)
+6. [Tilemap System](#tilemap-system)
+   - [Introduction to Tilemaps](#introduction-to-tilemaps)
+   - [Creating Tilemaps](#creating-tilemaps)
+   - [Advanced Tilemap Features](#advanced-tilemap-features)
+   - [Optimizing Tilemaps](#optimizing-tilemaps)
+7. [Particle Systems](#particle-systems)
    - [Introduction to Particle Systems](#introduction-to-particle-systems)
    - [Creating Break-Off Mechanics](#creating-break-off-mechanics)
    - [Particle System Examples](#particle-system-examples)
-7. [Conclusion](#conclusion)
+8. [Conclusion](#conclusion)
 
 ## Introduction
-In "Dwarvenkind," terrain plays a crucial role in shaping the gameplay experience. Different types of terrain, floors, walls, and materials interact in unique ways, providing a dynamic and immersive environment. This document provides an extensive overview of the various terrain types, their interactions, and how particle systems can be used to simulate break-off mechanics similar to those in "Noita."
+In "Dwarvenkind," terrain plays a crucial role in shaping the gameplay experience. Different types of terrain, floors, walls, and materials interact in unique ways, providing a dynamic and immersive environment. This document provides an extensive overview of the various terrain types, their interactions, the tilemap system, and how particle systems can be used to simulate break-off mechanics similar to those in "Noita."
 
 ## Terrain Types
 
@@ -219,6 +224,34 @@ In "Dwarvenkind," terrain plays a crucial role in shaping the gameplay experienc
 - **Enhanced Value:** Metal veins with embedded crystals are more valuable.
 - **Increased Difficulty:** Mining these veins requires advanced tools and techniques.
 
+## Tilemap System
+
+### Introduction to Tilemaps
+Tilemaps are a fundamental component in "Dwarvenkind," used to create and manage the game's terrain. A tilemap is a grid of tiles that represent different types of terrain, floors, and walls. This system allows for efficient rendering and manipulation of large environments.
+
+### Creating Tilemaps
+**Steps:**
+1. **Design Tiles:** Create individual tile sprites for each type of terrain, floor, and wall.
+2. **Setup Tilemap:** In your game engine (such as Godot), create a TileMap node and configure its properties, including tile size and collision shapes.
+3. **Tile Placement:** Use the TileMap editor to place tiles in the grid, designing the level's layout.
+4. **Layering:** Use multiple tile layers to separate different elements, such as background terrain, interactive objects, and overlays.
+
+**Tips:**
+- **Consistency:** Ensure tiles seamlessly connect to avoid visual gaps.
+- **Variety:** Use variations of the same tile to add visual interest and break repetition.
+- **Optimization:** Limit the number of unique tiles to optimize performance.
+
+### Advanced Tilemap Features
+**Autotiling:** Automate the placement of tiles based on surrounding tiles, reducing the manual work required for complex patterns.
+**Terrain Blending:** Use tiles that blend smoothly between different types of terrain, creating a more natural look.
+**Animated Tiles:** Add animations to certain tiles, such as flowing water or flickering lava, to enhance the environment's dynamism.
+**Interactive Tiles:** Create tiles that respond to player actions, such as doors that open when triggered or traps that activate upon contact.
+
+### Optimizing Tilemaps
+**Chunking:** Divide the tilemap into smaller chunks and only load chunks near the player to improve performance.
+**Occlusion Culling:** Hide tiles that are not visible to the player, reducing rendering load.
+**Level of Detail (LOD):** Use simpler tile designs at greater distances to save processing power.
+
 ## Particle Systems
 
 ### Introduction to Particle Systems
@@ -272,5 +305,4 @@ Particle systems in "Dwarvenkind" are used to simulate various environmental eff
 - **Behavior:** Flies outwards, dissipates quickly.
 
 ## Conclusion
-The terrain in "Dwarvenkind" is a complex and dynamic element that greatly influences gameplay. By understanding the different types of terrain, floors, walls, and materials, and how they interact with one another, players can navigate and manipulate the environment to their advantage. The use of particle systems to create realistic break-off mechanics further enhances the immersive experience, making the world of "Dwarvenkind" rich and engaging.
-
+The terrain in "Dwarvenkind" is a complex and dynamic element that greatly influences gameplay. By understanding the different types of terrain, floors, walls, and materials, and how they interact with one another, players can navigate and manipulate the environment to their advantage. The use of tilemaps allows for efficient creation and management of the game world, while particle systems enhance the immersive experience with realistic break-off mechanics. Together, these systems create a rich and engaging environment for players to explore.
