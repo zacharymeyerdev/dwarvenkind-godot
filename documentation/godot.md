@@ -62,32 +62,156 @@ This document provides a comprehensive guide on how to implement "Dwarvenkind" i
 ## Creating the Game World
 
 ### Tilemap System
-1. **Create Tilemaps:**
-   - Add a new `TileMap` node to the scene.
-   - Create tile sets for different terrain types (rock, dirt, sand, etc.).
-   - Define collision shapes and properties for each tile.
+The tilemap system is fundamental to creating the game world in "Dwarvenkind." It allows for efficient rendering and manipulation of large, complex environments by dividing the world into a grid of tiles. Each tile can represent different terrain types, floors, walls, or interactive elements.
 
-2. **Design Levels:**
-   - Use the `TileMap` editor to design the layout of the levels.
-   - Create multiple layers for background, foreground, and interactive elements.
+#### Setting Up Tilemaps
+1. **Add a TileMap Node:**
+   - In the Godot editor, create a new scene and add a `TileMap` node. This will serve as the container for all the tiles in a specific layer of the game world.
+
+2. **Create Tile Sets:**
+   - Design and import tile sprites for each type of terrain, floor, and wall. This includes tiles for rock, dirt, sand, lava, water, crystal, fungus, metal veins, and any other materials.
+   - Create a `TileSet` resource in Godot. This resource will contain all the tile definitions and their properties.
+   - In the `TileSet` editor, add each tile sprite and define its collision shape, navigation polygon, and any other relevant properties.
+
+3. **Designing the Layout:**
+   - Use the `TileMap` editor to place tiles on the grid. This can be done manually for hand-crafted levels or programmatically for procedural generation.
+   - Organize tiles into multiple layers for background, foreground, interactive elements, and overlays. Each layer can be represented by a separate `TileMap` node.
+
+4. **Configuring TileMap Properties:**
+   - Set the tile size (e.g., 32x32 pixels) and the grid size in the `TileMap` properties.
+   - Adjust the cell size and cell origin to ensure tiles align correctly.
+
+#### Autotiling
+- **Definition:** Autotiling allows the game engine to automatically select and place the appropriate tile based on its neighbors, significantly speeding up the level design process.
+- **Implementation:**
+  - Define autotile rules in the `TileSet` resource, specifying which tiles to use based on neighboring tiles.
+  - Use the autotile feature in the `TileMap` editor to quickly paint areas of the map, with the engine automatically choosing the correct tiles.
 
 ### Terrain Types
-1. **Define Terrain Types:**
-   - Create separate scenes for each terrain type (rock, dirt, sand, etc.).
-   - Add visual assets and collision shapes to each scene.
+Different terrain types in "Dwarvenkind" provide visual variety and influence gameplay mechanics. Each terrain type has unique properties and interactions.
 
-2. **Implement Interactions:**
-   - Script interactions between different terrain types (e.g., lava turning rock into magma).
-   - Use signals to trigger events based on terrain interactions.
+#### Rock
+**Description:** The most common terrain type, forming the structural backbone of the mines.
+
+- **Properties:**
+  - High hardness; requires a strong pickaxe to mine.
+  - Stable; does not collapse easily.
+  - Can block paths and hide valuable resources.
+- **Usage:** Create solid walls, floors, and structural elements.
+
+#### Dirt
+**Description:** Softer than rock, dirt patches are found throughout the mines.
+
+- **Properties:**
+  - Low hardness; easy to mine with basic tools.
+  - Moderate stability; can collapse if unsupported.
+  - Can be used to create temporary barriers or fill gaps.
+- **Usage:** Fill spaces between rock formations, create softer floors, and form collapsible barriers.
+
+#### Sand
+**Description:** Loose and unstable, sand is often found near water sources or in pockets within the rock.
+
+- **Properties:**
+  - Very low hardness; can be mined quickly.
+  - Unstable; collapses easily and can bury objects.
+  - Can smother fires or create barriers.
+- **Usage:** Create natural hazards, fill areas near water, and form collapsible paths.
+
+#### Lava
+**Description:** Molten rock that creates hazardous areas within the mines.
+
+- **Properties:**
+  - Cannot be mined.
+  - Fluid; flows and spreads.
+  - Burns anything it touches and can solidify into rock when cooled by water.
+- **Usage:** Add environmental hazards, create light sources, and provide dynamic terrain changes when interacting with water.
+
+#### Water
+**Description:** Found in underground lakes and streams, essential for various gameplay interactions.
+
+- **Properties:**
+  - Cannot be mined.
+  - Fluid; flows and spreads.
+  - Can extinguish fires, turn lava into rock, and manipulate sand.
+- **Usage:** Create natural obstacles, environmental hazards, and resource pools.
+
+#### Crystal
+**Description:** Rare and valuable, crystals grow in specific areas of the mines.
+
+- **Properties:**
+  - High hardness; requires advanced tools to mine.
+  - Stable; does not collapse easily.
+  - Can amplify light and magic, used in crafting and trading.
+- **Usage:** Decorate special areas, create resource nodes, and enhance magical environments.
+
+#### Fungus
+**Description:** Grows in damp, dark areas, spreading and covering large sections of terrain.
+
+- **Properties:**
+  - Low hardness; easy to remove.
+  - Spreads; can grow over time.
+  - Can be harvested for alchemical ingredients, may release spores when disturbed.
+- **Usage:** Add environmental variety, create harvestable resources, and provide dynamic terrain changes.
+
+#### Metal Veins
+**Description:** Deposits of various metals essential for crafting and trading.
+
+- **Properties:**
+  - Varies by metal; requires appropriate tools.
+  - Stable; usually embedded in rock.
+  - Essential for crafting weapons, armor, and tools.
+- **Usage:** Create resource nodes, enhance mining gameplay, and provide valuable crafting materials.
 
 ### Environmental Hazards
-1. **Create Hazards:**
-   - Design hazards such as spike traps, lava flows, and collapsible tunnels.
-   - Use `Area2D` nodes and collision shapes to define hazard areas.
+Environmental hazards in "Dwarvenkind" add complexity and challenge to the game world, requiring players to navigate and manage risks.
 
-2. **Implement Hazard Mechanics:**
-   - Script the behavior of each hazard (e.g., spikes triggering on player proximity).
-   - Use animation and particle effects to enhance hazard visuals.
+#### Collapsed Tunnels
+**Description:** Areas where the ceiling has fallen, creating impassable barriers or unstable ground.
+
+- **Properties:**
+  - Can cause damage if players are caught in the collapse.
+  - Blocks paths, requiring players to find alternative routes or clear the debris.
+- **Usage:** Create dynamic obstacles and hazards, requiring players to adapt and find new paths.
+
+#### Spike Traps
+**Description:** Hidden traps that spring up and deal damage when triggered.
+
+- **Properties:**
+  - Deal significant damage to players and enemies.
+  - Can be hidden or visible, adding an element of surprise.
+- **Usage:** Add risk to exploration, create dangerous areas, and challenge player awareness.
+
+#### Flooded Areas
+**Description:** Sections of the mines that are partially or fully submerged in water.
+
+- **Properties:**
+  - Slows movement and obscures visibility.
+  - Can hide hazards or resources.
+- **Usage:** Create natural obstacles, add environmental variety, and provide resource pools.
+
+#### Lava Flows
+**Description:** Streams of molten lava that flow through certain parts of the mines.
+
+- **Properties:**
+  - Deal continuous burn damage to anything they touch.
+  - Can solidify into rock when cooled by water.
+- **Usage:** Create dynamic hazards, add light sources, and provide terrain-changing interactions.
+
+#### Bioluminescent Flora
+**Description:** Glowing plants and fungi that illuminate the dark areas of the mines.
+
+- **Properties:**
+  - Provide natural light sources.
+  - Can be toxic if touched or disturbed.
+- **Usage:** Add visual variety, create light sources, and provide alchemical ingredients.
+
+#### Stalactites and Stalagmites
+**Description:** Natural rock formations that add complexity to the mine's structure.
+
+- **Properties:**
+  - Can obstruct movement and vision.
+  - Can be used strategically in combat or navigation.
+- **Usage:** Enhance environmental realism, create obstacles, and provide tactical elements in combat.
 
 ## Player Character
 
